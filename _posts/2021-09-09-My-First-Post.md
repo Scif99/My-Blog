@@ -82,8 +82,8 @@ We can now implement a program to find the start node of a cycle, assuming we ha
 {% highlight C++ %}
 ListNode* cycle_start(ListNode* head, ListNode* P){
 
-    ListNode *T = head; // place the tortoise back at the start
-    ListNode *H = P; // place the hare at P
+    ListNode* T = head; // place the tortoise back at the start
+    ListNode* H = P; // place the hare at P
 
     while(H!=T){
         T = T->next;
