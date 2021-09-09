@@ -37,11 +37,11 @@ If a solution to this exists, then they really do meet...
 Here is a short program to test whether a cycle exists:
 
 {% highlight C++ %}
-bool contains_cycle(ListNode *head){
+bool contains_cycle(ListNode* head){
 
     // define two pointers for the tortoise (T) and hare (H) respectively
-    ListNode *T = head;
-    ListNode *H = head;
+    ListNode* T = head;
+    ListNode* H = head;
 
     while(H){
         T = T->next; // tortoise moves along one at a time
