@@ -47,7 +47,7 @@ bool contains_cycle(ListNode* head){
         T = T->next; // tortoise moves along one at a time
         H = H->next ? H->next->next : H->next; // hare moves two at a time 
         
-        if(H==T) return true; // (it might be useful to also store where they meet)
+        if(H==T && T) return true; // check they they don't meet at the end of the list!
     }
     return false; // if the hare is null then the list must terminate
 }
