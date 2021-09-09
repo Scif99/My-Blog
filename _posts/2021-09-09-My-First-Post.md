@@ -5,8 +5,6 @@ date:   2021-09-09 19:04:53 +0100
 categories: jekyll update
 ---
 
-Welcome to my first post
-
 I recently did a question which asked "Given the head of a linked list, determine whether it contains a cycle". My initial solution was pretty inefficient, but was simple to understand. 
 
 I typically solve interview questions like this in C++, in which a pointer is a built-in data type. This question in particular was solveable by directly manipulating the pointers in the list. Essentially, if a cycle exists, then at some node in the list, the pointer will point to some address already pointed to. Thus, it suffices to iterate through the list, storing the addresses of each node pointer, then checking through all the stored addresses for a match. Of course, this is an O(n^2) proccess and so I knew that it couldn't be optimal, though it does potentially highlight a use for being able to directly manipulate memory.
@@ -19,7 +17,7 @@ Suppose we have a list which does contain a cycle. The "tortoise and hare" refer
 
 
 It is helpful to draw a picture of what's going on: 
-**picture** 
+![Cycle ](https://scif99.github.io/My-Blog/images/Cycle.jpg)
 
 
 
@@ -29,8 +27,9 @@ Suppose that the cycle begins d nodes from the start (which is unknown to us). N
 
 The key point here is that we know how the two distances relate. If the hare is moving at twice the speed of the tortoise, then by the time they meet at P it must have travelled twice the distance. And so we have
 
-    d+nC+L_1 = 2 * (d+mC+L_1)
-    d+L_1 = (n-2m) * C                
+$$d+nC+L_1 = 2(d+mC+L_1)$$
+
+$$d+L_1 = (n-2m)C$$                
 
 If a solution to this exists, then they really do meet...
 
@@ -60,16 +59,19 @@ Note that the loop ends when the hare is null, at which point it must have reach
 
 Now that we have shown cycle does exist, we might like to know *where* the cycle exists, i.e at what position the cycle begins. So basically we want to find d. Firstly we can rewrite the equation (*)
 
-    d+L_1 = kC  
-    d = kC - L_1
+$$d+L_1 = kC$$  
+
+$$d = kC - L_1$$
     
 where k is some integer.  **picture**
 
-Now note that L_1 = C - L_2, so that 
+Now note that $$L_1 = C - L_2$$, so that 
 
-    d = (m-2n) * C - C + L_2
-    d = (m-2n-1) * C + L_2
-    d = aC +L_2   
+$$d = (m-2n)C - C + L_2$$
+
+$$d = (m-2n-1)C + L_2$$
+
+$$d = aC +L_2$$   
   
   for some integer a
     
