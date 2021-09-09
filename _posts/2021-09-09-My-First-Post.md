@@ -5,33 +5,32 @@ date:   2021-09-09 19:04:53 +0100
 categories: jekyll update
 ---
 
-I recently did a question which asked "Given the head of a linked list, determine whether it contains a cycle". My initial solution was pretty inefficient, but was simple to understand. 
+I recently did a question which asked "Given the head of a linked list, determine whether it contains a cycle". My initial solution was simple but inefficient. In a language like C++, you can actually solve a question like this simply by the storing pointers in the list. Essentially, if a cycle exists, then at some node in the list, the pointer will point to some address already pointed to. Thus, it suffices to iterate through the list, storing the address of each pointer, whilst checking through all previously stored addresses for a match. 
 
-I typically solve interview questions like this in C++, in which a pointer is a built-in data type. This question in particular was solveable by directly manipulating the pointers in the list. Essentially, if a cycle exists, then at some node in the list, the pointer will point to some address already pointed to. Thus, it suffices to iterate through the list, storing the addresses of each node pointer, then checking through all the stored addresses for a match. Of course, this is an O(n^2) proccess and so I knew that it couldn't be optimal, though it does potentially highlight a use for being able to directly manipulate memory.
-
-Anyway, my suspicions were confirmed when I saw that the runtime for my solution was in the bottom 5% of all C++ solutions. I knew then that there must be some well-known algorithm to solve this, and so I had a look. What I was looking for is called Floyd's cycle-finding algorithm, a.k.a the "tortoise and hare algorithm" - an algorithm can check for a cycle in linear time and constant space.  ...
+Of course, this is an $$O(n^2)$$ process and so I knew that it couldn't be optimal, though it does potentially highlight a use for being able to manipulate pointers directly. A better way to solve is uses this thing called Floyd's cycle-detection algorithm, a.k.a the "tortoise and hare algorithm" - an algorithm can check for a cycle in linear $$O(n)$$ time and constant $$O(1)$$ space.
 
 **The Explanation**
 
-Suppose we have a list which does contain a cycle. The "tortoise and hare" refer to two pointers which iterate through the list at different rates. Although they both start at the head of the list, the tortoise will move along one node at a time, whilst the hare moves along two at a time. Immediately we can intuitively argue that the two will meet at some point within the cycle: since the hare is moving along at twice the rate, the distance between it and the tortoise will be increasing over time. Assuming that a cycle does exist, then they will eventually both be moving within the cycle. At this point, it should be obvious that the hare will eventually 'catch up' to the tortoise at some point! 
+Suppose we have a list which does contain a cycle. The "tortoise and hare" refer to two pointers which iterate through the list at different rates. The tortoise will move along one node at a time, whilst the hare moves along at a faster speed, say two nodes at a time. If we know that a cycle exists, then intuitively the two *should* meet at some point within the cycle: since the hare is moving along at twice the rate, the distance between it and the tortoise increases over time. After some time they will both be moving within the cycle, from which point it only makes sense that the hare will eventually 'catch up' to the tortoise at some point! 
+
+We want to show this a bit more formally. In fact, we can prove that the two will meet if and only if there exists a cycle. The latter is not too hard to see: If they do not meet at some intermediate point in the list, then it must be the case that both reached the end of the list (recall that the last node in a list contains a null pointer). Thus it suffices to show that, if there is a cycle, the two will eventually meet.
 
 
-It is helpful to draw a picture of what's going on: 
+It might be helpful to draw a picture of what's going on: 
 ![Cycle ](https://scif99.github.io/My-Blog/images/Cycle.jpg)
 
 
+Suppose that the cycle begins $$d$$ nodes from the start (which is unknown to us). Now suppose that the tortoise and hare meet at some point P. Let's also split the cycle into two, so that $$L_1$$ is the distance onwards from $$d$$ to P, and $$L_2$$ is the distance from P to the start of the cycle. We can now write down how far T and H will have moved in total by the time they meet at P. Assuming the cycle is of length $$C = L_1 + L_2$$, we can say that the tortoise has moved a distance of $$d + mC + L_1$$, where $$m$$ is some positive integer. This says that, in order to reach P, the hare will have moved a distance of $$d$$ (in order to reach the cycle), from which it may cycled around *fully* some number of times (they might not meet right away), but eventually will have to move an extra distance $$L_1$$ to get to P. Similarly, we can express the distance the hare has moved as $$d + nC + L_1$$, where $$n$$ is some other positive integer $$>m$$. This is the same as for the tortoise except it will have cycled more times than the tortoise since it is moving along at a faster rate. 
 
-*Note the cyclic part must be smaller than the full list!*
-
-Suppose that the cycle begins d nodes from the start (which is unknown to us). Now suppose that the tortoise and hare meet at some point P. Let's also split the cycle into two, so that L_1 is the distance from d to P, and L_2 is the distance from P to the start of the cycle. . We can now write down how far T and H will have moved overall by the time they meet at P. Assuming the cycle is of length C, we can say that the tortoise has moved a distance of d + mC + L_1, where m is some integer. This says that, in order to reach P, the hare will have moved a distance of d (in order to reach the cycle), from which it may cycled around *fully* some number of times (they might not meet right away), but eventually will have to move an extra distance L_1 to get to P. Similarly, we can express the distance the hare has moved as d + nC + L_1, where n is some integer (>2n) **prove**. This is the same as for the tortoise except it will have cycled more times than the tortoise since it is moving along at a faster rate. 
-
-The key point here is that we know how the two distances relate. If the hare is moving at twice the speed of the tortoise, then by the time they meet at P it must have travelled twice the distance. And so we have
+The key point here is that we know how the two distances relate. If the hare is moving at twice the speed of the tortoise, then by the time they meet at P it must have travelled twice the distance. this means we can write
 
 $$d+nC+L_1 = 2(d+mC+L_1)$$
 
-$$d+L_1 = (n-2m)C$$                
+$$d+L_1 = (n-2m)C$$             
 
-If a solution to this exists, then they really do meet...
+Now as long as there is a solution to this, then we know that the two will eventually meet. That is, if there is some values of $$L_1, n, m$$ that satisfy the above equation.
+
+**Give example**
 
 Here is a short program to test whether a cycle exists:
 
@@ -46,7 +45,7 @@ bool contains_cycle(ListNode* head){
         T = T->next; // tortoise moves along one at a time
         H = H->next ? H->next->next : H->next; // hare moves two at a time 
         
-        if(H==T && T) return true; // check they they don't meet at the end of the list!
+        if(H==T && T) return true; // doesn't count if they're both null!
     }
     return false; // if the hare is null then the list must terminate
 }
@@ -57,29 +56,19 @@ Note that the loop ends when the hare is null, at which point it must have reach
 *It is enough to only check whether the hare is null, since it will always reach the end of a non-cyclic list before the tortoise.
 
 
-Now that we have shown cycle does exist, we might like to know *where* the cycle exists, i.e at what position the cycle begins. So basically we want to find d. Firstly we can rewrite the equation (*)
-
-$$d+L_1 = kC$$  
-
-$$d = kC - L_1$$
-    
-where k is some integer.  **picture**
-
-Now note that $$L_1 = C - L_2$$, so that 
+Now that we have shown cycle does exist, we might like to know *where* the cycle exists, i.e at what position the cycle begins. In other words we want to find d. Luckily we are pretty much done already, though some rearranging might help explain why. All we need is to see that $$L_1 = C - L_2$$, so that 
 
 $$d = (m-2n)C - C + L_2$$
 
 $$d = (m-2n-1)C + L_2$$
 
-$$d = aC +L_2$$   
+$$d = aC +L_2$$
   
-  for some integer a
-    
-This last line tells us that the distance from the start up until the start of the cycle, d, is equal to some number of *full* cycles plus L_2, the distance from P onwards back to d. Therefore, we can find the value of d as follows: Place the tortoise at the start, and the hare at P. Now iterate both at the same speed (one at a time) until they meet. Where they meet will be the point at which the cycle starts.
+where a is some (positive) integer. This last line tells us that the distance from the start up until the start of the cycle is equal to some number of *full* cycles plus $$L_2$$, the distance from P onwards back to $$d$$. This means that when the tortoise has moved $$d$$ steps (at which point it will be where the cycle begins), the hare will have moved $$L_2$$ steps (bringing it to $$d$$) and and then fully cycled around $$a$$ times, meaning the two will meet at $$d$$! 
 
-An explanation for the above: When the tortoise reaches the start of the cycle, it will have moved d steps. From the above equation, the hare will have moved a cycles plus an extra L_2. Since it has started at P, this means it will meet the tortoise at because moving along L_2 from P will lead it back to d! 
+We can therefore find the value of $$d$$ as follows: Place the tortoise at the start, and the hare at P. Now iterate both at the same speed (one at a time) until they meet. Where they meet will be the point at which the cycle starts, i.e. $$d$$.
 
-We can now implement a program to find the start node of a cycle, assuming we have the meeting point P:
+The following code does exactly that:
 
 {% highlight C++ %}
 ListNode* cycle_start(ListNode* head, ListNode* P){
@@ -94,5 +83,12 @@ ListNode* cycle_start(ListNode* head, ListNode* P){
     return H; // the point where they meet is the start of the cycle
 {% endhighlight %}
 
+**Notes**
 
-**Does the speed need to be twice for the hare?
+- This general idea of maintaining two pointers can be used outside of detecting cycles, for example in finding a duplicate in an array.
+
+- When I said that $$n>m$$ it was clear from the context, though if you notice in $$d+L_1 = (n-2m)C$$ the value of $$n$$ actually needs to be $$> 2m$$ in order for the RHS to be positive. This isn't too har to see anyway: if the tortoise has completed $$m$$ cycles without the two meeting, then the hare must have completed *at least* twice as many in that time, since it is moving at twice the speed! 
+
+- At the start I arbitrarily decided that the hare will move twice as fast as the tortoise. In fact the argument generalises to multiples greater than 2, as long as they start from the same point in the list. The number 2 is just what is typically implemented into code.
+
+ 
