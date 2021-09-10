@@ -5,9 +5,9 @@ date:   2021-09-09 19:04:53 +0100
 categories: jekyll update
 ---
 
-I recently did a question which asked "Given the head of a linked list, determine whether it contains a cycle". My initial solution was simple but inefficient. In a language like C++, you can actually solve a question like this simply by the storing pointers in the list. Essentially, if a cycle exists, then at some node in the list, the pointer will point to some address already pointed to. Thus, it suffices to iterate through the list, storing the address of each pointer, whilst checking through all previously stored addresses for a match. 
+I recently did a question which asked "Given the head of a linked list, determine whether it contains a cycle". My initial solution was simple but inefficient. In a language like C++, you can solve a question like this simply by the storing pointers in the list. Essentially, if a cycle exists, then at some node in the list, the pointer will point to some address already pointed to. Thus, it suffices to iterate through the list, storing the address of each pointer and checking through all previously stored addresses for a match. 
 
-Of course, this is an $$O(n^2)$$ process and so I knew that it couldn't be optimal, though it does potentially highlight a use for being able to manipulate pointers directly. A better way to solve is uses this thing called Floyd's cycle-detection algorithm, a.k.a the "tortoise and hare algorithm" - an algorithm can check for a cycle in linear $$O(n)$$ time and constant $$O(1)$$ space.
+Of course, this is an $$O(n^2)$$ process and so I knew that it couldn't be optimal, though it does potentially highlight a use for being able to manipulate pointers directly. A better way to solve is uses a well known algorithm called Floyd's cycle-detection algorithm, a.k.a the "tortoise and hare" - an algorithm can check for a cycle in linear $$O(n)$$ time and constant $$O(1)$$ space.
 
 **The Explanation**
 
@@ -28,9 +28,7 @@ $$d+nC+L_1 = 2(d+mC+L_1)$$
 
 $$d+L_1 = (n-2m)C$$             
 
-Now as long as there is a solution to this, then we know that the two will eventually meet. That is, if there is some values of $$L_1, n, m$$ that satisfy the above equation.
-
-**Give example**
+Now as long as there is a solution to this, then we know that the two will eventually meet. That is, if there is some values of $$L_1, n, m$$ that satisfy the above equation. You can check that $$n=d$$, $$m=0$$,$$L_1 = dC-d$$ works. The point is that a solution exists, and so they will eventually meet. 
 
 Here is a short program to test whether a cycle exists:
 
@@ -51,9 +49,7 @@ bool contains_cycle(ListNode* head){
 }
 {% endhighlight %}
 
-Note that the loop ends when the hare is null, at which point it must have reached the end of the list (and thus there cannot be a cycle). 
-
-*It is enough to only check whether the hare is null, since it will always reach the end of a non-cyclic list before the tortoise.
+Note that the loop ends when the hare is null, at which point it must have reached the end of the list (and thus there cannot be a cycle). It is enough to only check whether the hare is null, since it will always reach the end of a non-cyclic list before the tortoise.
 
 
 Now that we have shown cycle does exist, we might like to know *where* the cycle exists, i.e at what position the cycle begins. In other words we want to find d. Luckily we are pretty much done already, though some rearranging might help explain why. All we need is to see that $$L_1 = C - L_2$$, so that 
@@ -71,7 +67,7 @@ We can therefore find the value of $$d$$ as follows: Place the tortoise at the s
 The following code does exactly that:
 
 {% highlight C++ %}
-ListNode* cycle_start(ListNode* head, ListNode* P){
+ListNode* cycle_start(ListNode* head, ListNode* P){ 
 
     ListNode* T = head; // place the tortoise back at the start
     ListNode* H = P; // place the hare at P
