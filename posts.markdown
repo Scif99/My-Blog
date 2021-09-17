@@ -11,6 +11,6 @@ permalink: /posts/
       {{ post.content | strip_html | truncatewords:30 }}
       <a href="{{ post.url | relative_url }}">See More</a>
     </li>
-     <br>
+    <br>
   {% endfor %}
 </ul>
