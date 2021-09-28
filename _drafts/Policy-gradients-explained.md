@@ -32,6 +32,7 @@ $$ \sum_{t=0}^{T} \log \pi_{\theta}(a_t |s_t) R(\tau)$$
 - Intuitively, policy gradients do the following:"policy gradient makes the good stuff more likely, and the bad stuff less likely"
 - Recall that, we can think of the rewards as a weighting that determines whether (and by how much) we increase the probability of choosing certain actions.
 - But what if all rewards were positive? In such a case it might seem like we are never decreasing the probability of "bad stuff"
+- e.g. if rewards are +1 and 0, then recieving 0 loads will mean parameters aren't updated!
 
 - It might be useful to 'centre' our rewards around some 'average', such that above-average actions have their probs increased, and below-average ones have theirs decreased
 
@@ -50,7 +51,16 @@ $$\hat{g} = \frac{1}{|\mathcal{D}|} \sum_{\tau \in \mathcal{D}} \sum_{t=0}^{T} \
 
 - A natural choice might be the value function $$V^{\pi}(s_{t})$$, the expected return from state s onwards
 
-- Advantage function
+**Introducing a critic**
+- Why not also consider the value function when using policy gradient methods?
+Critic: Updates action-value functions
+Actor: Updates policy weighted by direction from critic
+
+- Note that we will now need another network to estimate V!
+
+**Advantage function**
+- Combines notion of critic & baseline!
+
 $$A^{\pi}(s_t,a_t) = Q^{\pi}(s_t,a_t) - V^{\pi}(s_t)$$
 The advantage function tells us how good an action is relative to the average. Clearly we would need some other NN to estimate V however.
 
@@ -60,9 +70,3 @@ The advantage function tells us how good an action is relative to the average. C
 Actually we only need to estimate V!
 
 
-**Introducing a critic**
-- Why not also consider the value function when using policy gradient methods?
-Critic: Updates action-value functions
-Actor: Updates policy weighted by direction from critic
-
-- Note that we will now need another network to estimate V!

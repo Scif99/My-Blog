@@ -25,3 +25,19 @@ Loop
 - Move elements from helper back into original until adding tmp to helper maintains invariant
 - then push tmp onto helper
 - repeat until the original has no elements left
+
+**Graph algos**
+
+**BFS**
+- Uses a queue
+- Store edges in a dictionary!
+- Or could use an OOP approach...
+- Read the Q. do you need to store any extra info about vertices?
+
+
+
+**Questions I never did**
+
+**Chapter 4: Trees and Graphs**
+- 4.2, 4.3
+
