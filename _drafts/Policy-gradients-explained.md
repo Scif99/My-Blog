@@ -69,4 +69,11 @@ The advantage function tells us how good an action is relative to the average. C
 
 Actually we only need to estimate V!
 
+**the problem of policy gradients, in some sense, reduces to finding good estimates A^π,γ(st,at) of the advantage function Aπ,γ(st,at).**
 
+**Introducing a critic**
+- Why not also consider the value function when using policy gradient methods?
+Critic: Updates action-value functions
+Actor: Updates policy weighted by direction from critic
+
+- Note that we will now need another network to estimate V!
