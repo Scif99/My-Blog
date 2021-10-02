@@ -5,6 +5,23 @@ date:   2021-09-22 22:04:53 +0100
 categories: jekyll update
 ---
 
+**Terminology**
+
+**Thread**
+- Work which can be scheduled to work on a single core
+- A thread is contained inside a process
+- Each thread has its own call stack
+- However the heap is shared among all threads
+
+**Process**
+- Threads in the same process share (most) resources
+- Used to start a separate program
+
+**Core** 
+- "Core Count" represents the number of tasks that can be run simultaneously
+
+
+
 
 **multiple processes**
 the processes communicate via the OS?
@@ -33,6 +50,10 @@ typically, more tasks are running than there are hardware threads, so task switc
 - Performance increase might not be worth the cost
 
 *In C++, using multiple threads isn’t complicated in and of itself; the complexity lies in designing the code so that it behaves as intended*
+
+***When* Should you use it?**
+- For tasks that can intuitively be split into indep processing steps
+- Large read-only datasets
 
 **Launching a Thread**
 
