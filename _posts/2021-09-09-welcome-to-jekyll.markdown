@@ -24,7 +24,7 @@ From the python docs, a virtual environment is:
 
 - To create a venv named 'my_venv', run the following from the command line:
 
-  python3 -m venv tutorial-env
+  python3 -m venv my_venv
 
 **A side note on modules**
 - Any python file is a module, with name equal to the file's name without the .py
