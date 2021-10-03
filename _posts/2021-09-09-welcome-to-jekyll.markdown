@@ -52,6 +52,10 @@ pip freeze. Then you can directly ouput this to a text file via
 
   pip freeze > requirements.txt
 
+- Now, another person can install the list of required packages using 
+
+  pip install -r requirements.txt
+
 **How can I leave the virtual environment?**
 
 - run the command 
@@ -59,3 +63,20 @@ pip freeze. Then you can directly ouput this to a text file via
   deactivate
 
 https://www.youtube.com/watch?v=Kg1Yvry_Ydk
+
+**Where do I put the virtual environment**
+
+- Typically you would create a venv directory within your project directory. For example, for a project named 'my_project', you would say :
+
+  python3 -m venv my_project/my_venv
+
+And you would activate it via:
+
+  source my_project/my_venv/bin/activate
+
+
+**Things not to do**
+
+- Don't place files *inside* the venv folder
+
+- You should not commit your virtual environment to source control. That is, you typically place it in a .gitignore file. The requirements.txt file is enough.
