@@ -35,7 +35,7 @@ From the python docs, a virtual environment is:
 
   pip3 list
 
-
+**How to start using it?**
 - Once you have created a virtual environment, you need to activate it to use it. To actuvate my_env, you would write 
 
   source my_env -env/bin/activate
