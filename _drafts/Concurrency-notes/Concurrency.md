@@ -84,3 +84,21 @@ SOLUTION- use RAII! (and be careful with copies!)
 - Calling detach() allows a thread to run in the background. From this point, it’s no longer possible to wait for that thread to complete
 
 - An example of when detached threads would be used is word documents, where a separate thread is run for each open document, using the same code but different data
+
+**Passing arguments**
+- Passing arguments to a calleable function is as easy as passing the arguments through the thread constructor
+- However be careful with implicit conversions! e.g. passing a string literal will be copied as a  const char* and not immediately converted to a std::string
+- This is because the thread constructor copies the arguments into internal storage as is.
+- This also means you cannot get a non-const reference, without some magic
+
+- Important case is when arguments cannot be copied but only moved. If you want to transfer *ownership* you must use std::move
+
+**Transferring ownership of a thread**
+- std::thread is moveable but not copyable
+- Hence ownership of a thread can be transfered between instances!
+- Because of the move semantics, you can transfer ownership out of a function, 
+- (You can also transfer ownership *into* a function)
+
+
+**Choosing the number of threads**
+- You can place threads inside a dynamic container like a vector!
