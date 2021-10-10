@@ -24,7 +24,24 @@ $$D(y \vert f(x;\theta))$$ where $$f$$ estimate the parameters.
     - Logistic regression is when we use a linear model to estimate a bernoulli parameter!
 
 - Softmax function : transformation for multi-class (categorical) outputs
-    - 
+
+
+**Generative Modelling**
+
+- Given a dataset $$ \{ x_{1],x_{2},...,x_{n} \} $$, can we design a model that might have generated it?
+- Just use MLE!
+- (This is just unsupervised learning, since the distribution is not conditional on inputs!) 
+
+**Optimising with constrained parameter space**
+- Use a transformation (e.g. sigmoid, softmax) that turns the optimisation into an unconstrained one
+
+
+**Supervised vs Unsupervised Learning**
+- In the supervised case, data points are tuples $$(x,y)$$ where y is the label
+- In the unsupervised case, we only have $$x$$
+
+- In the supervised case, the probability model is $$P(y;x,\theta)$$
+- In the unsupervised case, the model is $$P(x;\theta)$$ 
 
 **Gaussian distribution**
 
@@ -56,7 +73,9 @@ If we choose a very large one, we will end up close to our prior (Recall regular
 
 **Bayesian Stats**   
 - Instead of computing point estimate for parameters, we use a probability distribution to model our uncertainty
-- Once we have found found our posterior over parameters, we can predict future observations                  
+- Once we have found found our posterior over parameters, we can predict future observations  
+
+
 
 **Intro to Bayesian ML**
 

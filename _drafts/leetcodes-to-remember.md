@@ -41,3 +41,6 @@ Loop
 **Chapter 4: Trees and Graphs**
 - 4.2, 4.3
 
+**Chapter 8: Recursion/DP**
+- Tower of Hanoi
+
