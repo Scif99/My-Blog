@@ -25,7 +25,10 @@ $$D(y \vert f(x;\theta))$$ where $$f$$ estimate the parameters.
 
 - Softmax function : transformation for multi-class (categorical) outputs
 
-
+**Visualising Conditional Likelihoods**
+- Consider a joint p.m.f(x,y) as a 2d plot
+- We can retrieve a conditional likelihood of x by slicing along a particular y, and scaling so that it integrates to 1
+- (See vid 5.2)
 **Generative Modelling**
 
 - Given a dataset $$ \{ x_{1],x_{2},...,x_{n} \} $$, can we design a model that might have generated it?
@@ -126,3 +129,14 @@ $$ = p(\vec{y} \vert \vec{x},\hat{\theta})$$
 
 
 
+**Practical DS**
+
+**Model Diagnosis**
+- How might we know whether to add a secular (long-term change) term to a linear model?
+
+**Computational Bayes**
+Example: Suppose we had a distribution X from which we could sample random faces. Suppose also that we had a classifier Y that models the mood of the face. How can we generate happy faces?
+
+- A naive way would be to just generate loads of faces, and keep the ones that had the highest probability of being happy. But how high should we go??
+
+- A better way would be to use bayes rule! If we have the distribution of Y, we can then find the distribution (X|Y=happy). But this doesn't tell us how to *generate* new faces. 
