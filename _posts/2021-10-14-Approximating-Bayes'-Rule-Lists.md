@@ -76,3 +76,23 @@ $$
 **Underflow?**
 - we might have lots and lots of points, to the point where
 probabilities are affected by floating point precision
+
+
+
+**Approximating an integral using Monte-Carlo Estimation**
+Here's one way you can approximate the integral of some non-negative function $$f(x)$$
+
+$$\int_{a}^{b}f(x)dx$$
+
+- Draw a box that contains f throughout the whole range
+- Sample points (x,y) at random in this box
+- Calculate $$A*p$$ where $$A$$ is the total area of the box, and $$p$$ is the number of points that lie under the curve
+
+Proof:
+
+Consider a box of height h, width b-a, such as below
+*image...*
+
+Recall that the monte Carlo Approximation is 
+
+$$ \E(h(X)) \approx \frac{1}{n} \sum_{i=1}^{n} h(x_{i})$$
