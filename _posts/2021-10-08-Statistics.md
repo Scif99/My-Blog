@@ -52,10 +52,6 @@ $$D(y \vert f(x;\theta))$$ where $$f$$ estimate the parameters.
 - Linear regression is just using linear models to fit a gaussian distribution!
 
 
-**Empirical distribution**
-- The empirircal distribution is an estimate of the cdf that generates the training points (Formally, it is an unbiased estimator of the true distribution function)
-- Can think of it as an estimate of the data generating process!
-- 
 
 **Regularization**
 - Purely minimising ER is prone to overfitting! especially if the model has loads of parameters.
