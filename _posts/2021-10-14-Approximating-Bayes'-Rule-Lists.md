@@ -96,3 +96,8 @@ Consider a box of height h, width b-a, such as below
 Recall that the monte Carlo Approximation is 
 
 $$ \E(h(X)) \approx \frac{1}{n} \sum_{i=1}^{n} h(x_{i})$$
+
+Let X be uniform in [a,b]
+Let Y be uniform in [0,h]
+So that our samples are $$(x_{1},y_{1}),...,(x_{n},y_{n})$$
+
