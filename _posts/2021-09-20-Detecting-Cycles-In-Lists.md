@@ -1,15 +1,16 @@
 ---
 layout: post
 title:  "Detecting Cycles in Lists"
-date:   2021-09-09 19:04:53 +0100
+date:   2021-09-20 19:04:53 +0100
 categories: jekyll update
+draft: false
 ---
 
-I recently did a question which asked "Given the head of a linked list, determine whether it contains a cycle". My initial solution was simple but inefficient. In a language like C++, you can solve a question like this simply by the storing pointers in the list. Essentially, if a cycle exists, then at some node in the list, the pointer will point to some address already pointed to. Thus, it suffices to iterate through the list, storing the address of each pointer and checking through all previously stored addresses for a match. 
+I recently did a question which asked "Given the head of a linked list, determine whether it contains a cycle". My initial solution involved manipulating memory directly. In C++, you can solve a question like this simply by the storing pointers in the list. Essentially, if a cycle exists, then at some node in the list, the pointer will point to some address already pointed to. Thus, it suffices to iterate through the list, storing the address of each pointer and checking through all previously stored addresses for a match. 
 
-Of course, this is an $$O(n^2)$$ process and so I knew that it couldn't be optimal, though it does potentially highlight a use for being able to manipulate pointers directly. A better way to solve is uses a well known algorithm called Floyd's cycle-detection algorithm, a.k.a the "tortoise and hare" - an algorithm can check for a cycle in linear $$O(n)$$ time and constant $$O(1)$$ space.
+Of course, this is an $$O(n^2)$$ process and so I knew that it couldn't be optimal. A better way to solve is uses a well known algorithm called Floyd's cycle-detection algorithm, a.k.a the "tortoise and hare" - an algorithm can check for a cycle in linear $$O(n)$$ time and constant $$O(1)$$ space.
 
-**The Explanation**
+**How it Works**
 
 Suppose we have a list which does contain a cycle. The "tortoise and hare" refer to two pointers which iterate through the list at different rates. The tortoise will move along one node at a time, whilst the hare moves along at a faster speed, say two nodes at a time. If we know that a cycle exists, then intuitively the two *should* meet at some point within the cycle: since the hare is moving along at twice the rate, the distance between it and the tortoise increases over time. After some time they will both be moving within the cycle, from which point it only makes sense that the hare will eventually 'catch up' to the tortoise at some point! 
 

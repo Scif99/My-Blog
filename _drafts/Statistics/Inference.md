@@ -18,7 +18,7 @@ Bayesian still requires us to decide a prior...
 - Therefore it doesn't provide any information about our uncertainty for this estimmte.
 - Frequentist view! we assume param *fixed* and unknown
 - In fact the MLE is a special case of a bayesian posterior assuming a uniform prior!
-
+- The MLE (if it exists) will always be a function of 
 
 **Bayesian Inference**
 The main idea of bayesianism says that we should represent unknown quantities as random variables!
