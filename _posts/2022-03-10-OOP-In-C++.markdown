@@ -113,4 +113,7 @@
 - When copying a derived object into a base one, narrowing occurs. Examples of slicing are:
 1) Assigning a derived object to a base one 
 2) Using pass-by-value with a function that takes a base object
-3) Using an std::vector of objects (e.g. iterating) rather than pointers-to-objects
+
+**Using an std::vector of objects** 
+- In order to store polymorhpic objects, we have to use (smart!) pointers.
+- We cannot use direct objects as this results in a copy, and we cannot use references as vector elements must be reassignable.
