@@ -66,7 +66,7 @@
 - In order to use the correct implementation of speak, we utilise polymorphism via *virtual* functions
 
 
-**Virtual Functions
+**Virtual Functions**
 - A virtual function allows us to override definitions from a base class.
 - When a function specified as virtual is called, the compiler looks for the most derived version of the function.
 
@@ -75,6 +75,39 @@
 - The functions must have the same signature. 
 - If you specify a function as override, the compiler will throw an error if that function does not override anything (USE THIS!)
 - If you specify a function(class) as final, the compiler won't allow you to override(inhert) from that function(class).
+- COVARIANT RETURN TYPES?
+
+**Destructors & Inheritance**
+*You should specify destructors as virtual whenever you are dealing with inheritance...*
+#give example
+*Or Not...* (Protected?)
 
 **Why Shouldn't We Declare All Functions Virtual?**
-- Inefficient. 
+- Slow? Not really! (only one extra memory acess!)
+- Extra space? 
+**An Aside- Binding**
+- Binding refers to the process of associating a function/variable etc to an address in memory. This can be done at compile-time (static binding) or run-time (dynamic binding)
+- In other words, static binding means that when the compiler sees a function call, it can immediately replace the call with an address so that CPU knows where to jump to. However, dynamic binding means the function to be called is not known until runtime. The compiler must use some intermediate address, since the function address isn't known yet.
+*key point: binding is about **when** a function is resolved. polymorphism is about **how**. 
+#example using function pointers.
+
+**How Virtual Calls Are Handled - The vtable**
+#example using p506 from bjarne book
+- The vtable is an example of late binding
+- Every class that has a virtual function (or is derived from such a class) is given a static array (the vtable) and a hidden pointer (the vptr)
+- The vtable has one entry for every virtual function in the class. Each element is a pointer to the most-derived function accessible by that class
+- Every instance of the class has its vptr point to the vtable of the class 
+*The virtual function call mechanism is basically 'following the arrows*
+- This explains how base pointers to derived objects work - The base pointer has access to the vptr (as it is defined in both derived/base class), which points to the vtable of the *derived* class.
+
+
+**Pure virtual Functions & Abstract Classes**
+- A pure virtual function is used when there is no conveniant default behaviour. In other words, it *must* be redefined in derived classes.
+- A class with a pure virtual function becomes an *Abstract Class*, cannot be instantiated!
+#give example using animals and speak(). There is no default 'speak', every animal sounds different!
+
+**Gotcha: Object Slicing**
+- When copying a derived object into a base one, narrowing occurs. Examples of slicing are:
+1) Assigning a derived object to a base one 
+2) Using pass-by-value with a function that takes a base object
+3) Using an std::vector of objects (e.g. iterating) rather than pointers-to-objects
