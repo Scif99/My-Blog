@@ -1,5 +1,8 @@
 **OOP in C++**
-- An instance of a class is called an *object*
+- Abstraction
+- Inheritance
+- Polymorphism
+- Encapsulation
 
 **Inheritance Basics**
 - Inheritance should be used to model 'is-a' relationships
