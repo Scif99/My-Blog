@@ -51,6 +51,30 @@
   - Again, not really what we mean by polymorphism in the context of OOP.
 
 2) **Dynamic (Run-Time) Polymorphism**
+   - This is what people typically mean when they refer to polymorphism in OOP
   
+  
+**Pointers/References & Inheritance**
+- C++ allows us to set a base pointer/reference to a derived object. However doing so result in unexpected output
+#Example where a base pointer pointing to a derived object calls the base function rather than the derived one
+- It turns out that the base pointer can only see the 'base part' (remember a derived object is part base/part derived)
+
+**Why would we do this?**
+- might want to store a number of objects in a container, to iterate through...
+- Using base pointers allows us to use a single container, else would need a separate one for each derived class
+#easy example using animals and 'speak'
+- In order to use the correct implementation of speak, we utilise polymorphism via *virtual* functions
+
 
 **Virtual Functions
+- A virtual function allows us to override definitions from a base class.
+- When a function specified as virtual is called, the compiler looks for the most derived version of the function.
+
+#This virtual call mechanism is what allows us to call animal->speak for every object in the vector in the above example
+*GOTCHA: Dont call virtual functions from a constructor (remember the order in which parts of a derived object are constructed!)*
+- The functions must have the same signature. 
+- If you specify a function as override, the compiler will throw an error if that function does not override anything (USE THIS!)
+- If you specify a function(class) as final, the compiler won't allow you to override(inhert) from that function(class).
+
+**Why Shouldn't We Declare All Functions Virtual?**
+- Inefficient. 
