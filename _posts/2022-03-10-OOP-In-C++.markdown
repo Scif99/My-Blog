@@ -39,6 +39,7 @@
 - Polymorphism can be further categorised into:
 
 1) **Static (Compile-Time) Polymorphism**
+
     **Ad-Hoc Polymorphism** (a.k.a function/operator overloading) *Where a function behaves differently depending on its arguments/types*
     - This is also known as function overloading (and operator overloading in C++)
     - Technically unrelated to OOP.
