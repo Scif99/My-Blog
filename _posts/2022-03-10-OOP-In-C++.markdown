@@ -1,1 +1,55 @@
-##OOP in C++
+**OOP in C++**
+- An instance of a class is called an *object*
+
+**Inheritance Basics**
+- Inheritance should be used to model 'is-a' relationships
+- For example, consider a Animal and a Dog (which is an animal).
+- Used to prevent code duplication/hide functionality
+#Example#
+
+- We say that the Animal class is *derived* from the Animal class.
+- A derived class inherits all attributes from the class(es) it derives from.
+- In our example, a dog object will have a name (inherited from the Animal class), and a breed (from the Dog class).
+- #example with two unrelated classes deriving from the same one (cat and dog)#
+
+**Constructing a Derived Object**
+*key point: a derived object can be thought of as being 'part base/part derived'* (just another way to think of the 'is-a' model)
+- Construction of a derived object is done in phases. (base->down to the derived)
+#example with constructors for base/derived#
+- You cannot initialize inherited member variables in the member initializer list of the constructor of a derived class. This is because if the inherited var was const, we might end up redefining it in the derived constructor which is not allowed! Instead you should initialized inherited members using a constructor from the base class
+#example where derived constructor calls base constructor in memb-initi-list#
+
+**Calling Inherited Functions**
+- When a function is called on a derived object, the compiler will check if the function exists in the derived class. If not, it will look up the inheritance chain for a definition, and will use the first one found
+- Sometimes need to use scope operator :: to prevent infinite loops
+- - 
+
+**Destruction**
+- The order of destruction is the reverse of construction (i.e derived -> up to base)
+
+**Access Specifiers**
+
+**Multiple Inheritance**
+- Avoid it wherever possible.
+
+
+
+**Polymorphism**
+- In the general case, polymorphism means *representing multiple concepts with a single intterface*.
+- Polymorphism can be further categorised into:
+
+1) **Static (Compile-Time) Polymorphism**
+    **Ad-Hoc Polymorphism** (a.k.a function/operator overloading) *Where a function behaves differently depending on its arguments/types*
+    - This is also known as function overloading (and operator overloading in C++)
+    - Technically unrelated to OOP.
+    - e.g. consider the expression a+b... (how it is evaluated depends on the types of a and b!)
+
+   **Parametric Polymorphism**
+  *Where a function behaves identically without depending on the type*
+  - In C++, this refers to the use of templates (Generics in Java)
+  - Again, not really what we mean by polymorphism in the context of OOP.
+
+2) **Dynamic (Run-Time) Polymorphism**
+  
+
+**Virtual Functions
